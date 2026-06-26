@@ -184,7 +184,7 @@ python app.py
 ```
 
 Ask:
-explain Bert?
+define fewshot?
 ```
 
 ---
@@ -193,74 +193,48 @@ explain Bert?
 
 ```
 
-MODE: explain
+MODE: general
 
 Top Results
 
-Source : BERT.pdf
-Page   : 7
-Text   : n experiments
-over a number of facets of BERT in order to better
-understand their relative importance. Additional
+Source : FewShot.pdf
+Page   : 6
+Text   : his is how many examples can ﬁt in the model’s context window
+(nctx = 2048). The main advantages of few-shot are a major reduction in the need for task-speciﬁc data and
+reduced potential to learn an overly narrow distribution from a large but narrow ﬁne-tuning dataset. The main
+disadvantage is that results from this method have so far been much worse than state-of-the-art ﬁne-tuned
+models. Also, a small amount of task speciﬁc data is still required. As indicated by the name, few-shot
+learning as
 ----------------------------------------------------------------------
-Source : Embed.pdf
+Source : FewShot.pdf
+Page   : 6
+Text   : few-shot except that only one demonstration is allowed, in addition to a natural
+language description of the task, as shown in Figure 1. The reason to distinguish one-shot from few-shot and
+zero-shot (below) is that it most closely matches the way in which some tasks are communicated to humans.
+For example, when asking humans to generate a dataset on a human worker service (for example Mechanical
+Turk), it is common to give one demonstration of the task. By contrast it is sometimes difﬁcult to c
+----------------------------------------------------------------------
+Source : FewShot.pdf
 Page   : 10
-Text   : 2020/hash/1e14bfe2714193e7af5abc64ecbd6b46-Abstract.html.
-[20] Fangxiaoyu Feng, Yinfei Yang, Daniel Cer, Naveen Arivazhagan, and Wei Wang. Language-
-agnostic bert sentence embedding. In Proceedings of the 60th Annual Meeting of the Association
-for Computational Linguistics (Volume 1: Long Papers), pages 878–891, 2022.
-[21] Leo Gao, Stella Rose Biderman, Sid Black, Laurence Golding, Travis Hoppe, Charles Foster,
-Jason Phang, Horace He, Anish Thite, Noa Nabeshima, Shawn Presser, and Connor Leahy.
+Text   : the
+few-shot, one-shot, and zero-shot settings.
+10
 ----------------------------------------------------------------------
-Source : BERT.pdf
-Page   : 4
-Text   : nput token
-as Ti ∈RH.
-For a given token, its input representation is
-constructed by summing the corresponding token,
-segment, and position embeddings. A visualiza-
-tion of this construction can be seen in Figure 2.
-3.1
-Pre-training BERT
-Unlike Peters et al. (2018a) and Radford et al.
-(2018), we do not use traditional left-to-right or
-right-to-left language models to pre-train BERT.
-Instead, we pre-train BERT using two unsuper-
-vised tasks, described in this section. This step
-is presented in the
+Source : FewShot.pdf
+Page   : 6
+Text   : small amount of task speciﬁc data is still required. As indicated by the name, few-shot
+learning as described here for language models is related to few-shot learning as used in other contexts in
+ML [HYC01, VBL+16] – both involve learning based on a broad distribution of tasks (in this case implicit in
+the pre-training data) and then rapidly adapting to a new task.
+• One-Shot (1S) is the same as few-shot except that only one demonstration is allowed, in addition to a natural
+language descriptio
 ----------------------------------------------------------------------
-Source : BERT.pdf
+Source : FewShot.pdf
 Page   : 13
-Text   : P]
-Label = IsNext
-Input = [CLS] the man [MASK] to the store [SEP]
-penguin [MASK] are flight ##less birds [SEP]
-Label = NotNext
-A.2
-Pre-training Procedure
-To generate each training input sequence, we sam-
-ple two spans of text from the corpus, which we
-refer to as “sentences” even though they are typ-
-ically much longer than single sentences (but can
-be shorter also). The ﬁrst sentence receives the A
-embedding and the second receives the B embed-
-ding. 50% of the time B is the actual next sentenc
-----------------------------------------------------------------------
-Source : BERT.pdf
-Page   : 4
-Text   : -train BERT using two unsuper-
-vised tasks, described in this section. This step
-is presented in the left part of Figure 1.
-Task #1: Masked LM
-Intuitively, it is reason-
-able to believe that a deep bidirectional model is
-strictly more powerful than either a left-to-right
-model or the shallow concatenation of a left-to-
-right and a right-to-left model.
-Unfortunately,
-standard conditional language models can only be
-trained left-to-right or right-to-left, since bidirec-
-tional conditioning would a
+Text   : the few-shot setting approaches the performance of
+state-of-the-art ﬁne-tuned models. Notably, compared to TriviaQA, WebQS shows a much larger gain from zero-shot to
+few-shot (and indeed its zero-shot and one-shot performance are poor), perhaps suggesting that the WebQs questions
+13
 ----------------------------------------------------------------------
 ```
 
