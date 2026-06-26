@@ -184,7 +184,7 @@ python app.py
 ```
 
 Ask:
-What is Bert?
+explain Bert?
 ```
 
 ---
@@ -193,6 +193,25 @@ What is Bert?
 
 ```
 
+MODE: explain
+
+Top Results
+
+Source : BERT.pdf
+Page   : 7
+Text   : n experiments
+over a number of facets of BERT in order to better
+understand their relative importance. Additional
+----------------------------------------------------------------------
+Source : Embed.pdf
+Page   : 10
+Text   : 2020/hash/1e14bfe2714193e7af5abc64ecbd6b46-Abstract.html.
+[20] Fangxiaoyu Feng, Yinfei Yang, Daniel Cer, Naveen Arivazhagan, and Wei Wang. Language-
+agnostic bert sentence embedding. In Proceedings of the 60th Annual Meeting of the Association
+for Computational Linguistics (Volume 1: Long Papers), pages 878–891, 2022.
+[21] Leo Gao, Stella Rose Biderman, Sid Black, Laurence Golding, Travis Hoppe, Charles Foster,
+Jason Phang, Horace He, Anish Thite, Noa Nabeshima, Shawn Presser, and Connor Leahy.
+----------------------------------------------------------------------
 Source : BERT.pdf
 Page   : 4
 Text   : nput token
@@ -211,19 +230,37 @@ vised tasks, described in this section. This step
 is presented in the
 ----------------------------------------------------------------------
 Source : BERT.pdf
-Page   : 3
-Text   : ized with the same pre-trained parameters. The
-question-answering example in Figure 1 will serve
-as a running example for this section.
-A distinctive feature of BERT is its uniﬁed ar-
-chitecture across different tasks. There is mini-
-mal difference between the pre-trained architec-
-ture and the ﬁnal downstream architecture.
-Model Architecture
-BERT’s model architec-
-ture is a multi-layer bidirectional Transformer en-
-coder based on the original implementation de-
-scribed in Vaswani et al. (2017)
+Page   : 13
+Text   : P]
+Label = IsNext
+Input = [CLS] the man [MASK] to the store [SEP]
+penguin [MASK] are flight ##less birds [SEP]
+Label = NotNext
+A.2
+Pre-training Procedure
+To generate each training input sequence, we sam-
+ple two spans of text from the corpus, which we
+refer to as “sentences” even though they are typ-
+ically much longer than single sentences (but can
+be shorter also). The ﬁrst sentence receives the A
+embedding and the second receives the B embed-
+ding. 50% of the time B is the actual next sentenc
+----------------------------------------------------------------------
+Source : BERT.pdf
+Page   : 4
+Text   : -train BERT using two unsuper-
+vised tasks, described in this section. This step
+is presented in the left part of Figure 1.
+Task #1: Masked LM
+Intuitively, it is reason-
+able to believe that a deep bidirectional model is
+strictly more powerful than either a left-to-right
+model or the shallow concatenation of a left-to-
+right and a right-to-left model.
+Unfortunately,
+standard conditional language models can only be
+trained left-to-right or right-to-left, since bidirec-
+tional conditioning would a
 ----------------------------------------------------------------------
 ```
 
