@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Portal - Student Management System</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="login-body">
+  <div class="glass-panel login-box">
+    <div class="login-header">
+      <div class="logo-container" style="justify-content: center; margin-bottom: 1.5rem;">
+        <div class="logo-icon">S</div>
+        <h2 class="neon-text">Student Portal</h2>
+      </div>
+      <p style="color: var(--text-muted);">Centralized Identity & Access Management</p>
+    </div>
+
+    <!-- Status Banners -->
+    <div id="kc-status-container"></div>
+
+    <h3 style="margin-top: 1.5rem; font-size: 1.2rem;">Choose your Role to Login</h3>
+
+    <div class="role-select-grid">
+      <div class="role-option" onclick="selectRole('Student')">
+        <div class="role-icon">🎓</div>
+        <div class="role-title">Student Portal</div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">View grades, attendance, and register courses</span>
+      </div>
+      
+      <div class="role-option" onclick="selectRole('Faculty')">
+        <div class="role-icon">👨‍🏫</div>
+        <div class="role-title">Faculty Portal</div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Record attendance, grade students, and manage classes</span>
+      </div>
+      
+      <div class="role-option" onclick="selectRole('Admin')">
+        <div class="role-icon">⚙️</div>
+        <div class="role-title">Administrator Portal</div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Configure courses, view system metrics and dashboard logs</span>
+      </div>
+    </div>
+
+    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1.5rem;">
+      Protected by Keycloak OpenID Connect (OIDC) Protocol.
+    </p>
+  </div>
+
+  <script>
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/user');
+        const data = await res.json();
+        
+        const container = document.getElementById('kc-status-container');
+        if (data.keycloakError) {
+          container.innerHTML = `
+            <div class="alert-banner" style="text-align: left;">
+              <div>⚠️</div>
+              <div>
+                <strong>Keycloak OIDC: Offline</strong><br/>
+                <span style="font-size: 0.8rem;">Keycloak realm is not configured yet. Running in developer mock mode.</span>
+              </div>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="info-banner" style="text-align: left;">
+              <div>🔒</div>
+              <div>
+                <strong>Keycloak OIDC: Connected</strong><br/>
+                <span style="font-size: 0.8rem;">Real-time authentication and RBAC active via Keycloak token verification.</span>
+              </div>
+            </div>
+          `;
+        }
+      } catch (err) {
+        console.error('Failed to get status:', err);
+      }
+    }
+
+    function selectRole(role) {
+      window.location.href = `/login?role=${role}`;
+    }
+
+    checkStatus();
+  </script>
+</body>
+</html>
