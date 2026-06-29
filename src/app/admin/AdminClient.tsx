@@ -10,15 +10,23 @@ import toast from "react-hot-toast";
 type Order = { id: number; orderNo: string; total: string; status: string; createdAt: Date | string };
 type Product = { id: number; name: string; slug: string; price: string; stock: number; isFeatured: boolean };
 type Category = { id: number; name: string; slug: string };
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+};
 
 export default function AdminClient({
   recentOrders,
   products,
   categories,
+  users,
 }: {
   recentOrders: Order[];
   products: Product[];
   categories: Category[];
+  users: User[];
 }) {
   const [tab, setTab] = useState<"overview" | "products" | "orders" | "users">("overview");
   const router = useRouter();
@@ -61,11 +69,10 @@ export default function AdminClient({
           <button
             key={t.id}
             onClick={() => setTab(t.id as any)}
-            className={`px-6 py-3 rounded-full font-semibold whitespace-nowrap transition-colors ${
-              tab === t.id
-                ? "bg-gradient-to-r from-blush-500 to-blush-600 text-white shadow-cake"
-                : "glass text-cocoa-400 hover:bg-blush-50"
-            }`}
+            className={`px-6 py-3 rounded-full font-semibold whitespace-nowrap transition-colors ${tab === t.id
+              ? "bg-gradient-to-r from-blush-500 to-blush-600 text-white shadow-cake"
+              : "glass text-cocoa-400 hover:bg-blush-50"
+              }`}
           >
             <t.icon className="inline w-4 h-4 mr-2" />
             {t.label}
@@ -220,9 +227,37 @@ export default function AdminClient({
       )}
 
       {tab === "users" && (
-        <div className="glass rounded-3xl p-6 text-center py-12">
-          <Users className="w-16 h-16 mx-auto mb-4 text-cocoa-300" />
-          <p className="text-cocoa-400">User management coming soon</p>
+        <div className="glass rounded-3xl p-6">
+          <h2 className="font-display text-xl font-bold text-cocoa-600 mb-6">
+            All Users
+          </h2>
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-blush-100">
+                  <th className="text-left py-3 px-4">ID</th>
+                  <th className="text-left py-3 px-4">Name</th>
+                  <th className="text-left py-3 px-4">Email</th>
+                  <th className="text-left py-3 px-4">Role</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {users.map((u) => (
+                  <tr
+                    key={u.id}
+                    className="border-b border-blush-50 hover:bg-blush-50/50"
+                  >
+                    <td className="py-3 px-4">{u.id}</td>
+                    <td className="py-3 px-4">{u.name}</td>
+                    <td className="py-3 px-4">{u.email}</td>
+                    <td className="py-3 px-4">{u.role}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
