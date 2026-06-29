@@ -1,0 +1,46 @@
+services:
+
+  postgres:
+    image: postgres:16
+
+    container_name: postgres_db
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: madhan
+      POSTGRES_PASSWORD: madhan123
+      POSTGRES_DB: student_db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U madhan -d student_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+
+    container_name: student_api
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+
+    environment:
+      DATABASE_URL: postgresql://madhan:madhan123@postgres:5432/student_db
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
