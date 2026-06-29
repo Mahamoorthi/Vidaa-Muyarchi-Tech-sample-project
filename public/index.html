@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Student Management System</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="dashboard-grid">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div>
+        <div class="logo-container">
+          <div class="logo-icon">S</div>
+          <h2 class="neon-text" style="font-size: 1.2rem;">SMS Portal</h2>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <!-- Dynamically populated based on role -->
+        </ul>
+      </div>
+
+      <!-- User Card at bottom of sidebar -->
+      <div class="user-card" id="user-card-bottom">
+        <div class="avatar" id="avatar-icon">?</div>
+        <div class="user-details">
+          <span class="user-name" id="user-display-name">Loading...</span>
+          <span class="user-role" id="user-display-role">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <div class="header-row">
+        <div>
+          <h1 id="page-title">Welcome to Student Management Portal</h1>
+          <p style="color: var(--text-muted); margin-top: 0.25rem;" id="page-subtitle">Real-time centralized academic records</p>
+        </div>
+        <div>
+          <a href="/logout" class="btn btn-danger">Log Out</a>
+        </div>
+      </div>
+
+      <!-- DYNAMIC SECTIONS -->
+
+      <!-- 1. STUDENT SECTION -->
+      <div id="section-student" class="dashboard-section">
+        <div class="stats-container">
+          <div class="glass-panel stat-card">
+            <h3>GPA</h3>
+            <div class="stat-val" id="student-gpa">0.0</div>
+            <p style="color: var(--text-muted);">Current Academic GPA</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Registered Courses</h3>
+            <div class="stat-val" id="student-courses-count">0</div>
+            <p style="color: var(--text-muted);">Active Enrollments</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Attendance Rate</h3>
+            <div class="stat-val" id="student-attendance-rate">0%</div>
+            <p style="color: var(--text-muted);">Overall Present Rate</p>
+          </div>
+        </div>
+
+        <div class="widgets-grid">
+          <!-- Grades Table -->
+          <div class="glass-panel">
+            <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">Academic Grades</h3>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                  </tr>
+                </thead>
+                <tbody id="student-grades-table">
+                  <!-- JS populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Attendance Table -->
+          <div class="glass-panel">
+            <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">Attendance Logs</h3>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="student-attendance-table">
+                  <!-- JS populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Registration Widget -->
+        <div class="glass-panel" style="margin-top: 2rem;">
+          <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">Course Registration</h3>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Course Name</th>
+                  <th>Credits</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="student-registration-table">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. FACULTY SECTION -->
+      <div id="section-faculty" class="dashboard-section">
+        <div class="stats-container">
+          <div class="glass-panel stat-card">
+            <h3>My Courses</h3>
+            <div class="stat-val" id="faculty-courses-count">0</div>
+            <p style="color: var(--text-muted);">Assigned Classes</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Enrolled Students</h3>
+            <div class="stat-val" id="faculty-students-count">0</div>
+            <p style="color: var(--text-muted);">Total Under Instruction</p>
+          </div>
+        </div>
+
+        <!-- Select Course to Grade/Attendance -->
+        <div class="glass-panel" style="margin-bottom: 2rem;">
+          <h3 style="margin-bottom: 1rem;">Select Course & Action</h3>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+              <label class="form-label">Course</label>
+              <select class="form-control" id="faculty-course-select" onchange="loadCourseEnrollments()">
+                <!-- JS populated -->
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+              <label class="form-label">Action</label>
+              <select class="form-control" id="faculty-action-select" onchange="toggleFacultyActionView()">
+                <option value="grade">Update Grades</option>
+                <option value="attendance">Record Attendance</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade Panel -->
+        <div class="glass-panel dashboard-section active" id="faculty-grade-panel">
+          <h3 style="margin-bottom: 1rem;">Enter Student Grades</h3>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Marks (0-100)</th>
+                  <th>Grade</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="faculty-grade-table">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Attendance Panel -->
+        <div class="glass-panel" style="display: none;" id="faculty-attendance-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3>Record Attendance</h3>
+            <div class="form-group" style="margin-bottom: 0; width: 180px;">
+              <input type="date" class="form-control" id="attendance-date" value="">
+            </div>
+          </div>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="faculty-attendance-table">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. ADMIN SECTION -->
+      <div id="section-admin" class="dashboard-section">
+        <div class="stats-container">
+          <div class="glass-panel stat-card">
+            <h3>Total Students</h3>
+            <div class="stat-val" id="admin-stat-students">0</div>
+            <p style="color: var(--text-muted);">Registered Profiles</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Total Faculty</h3>
+            <div class="stat-val" id="admin-stat-faculty">0</div>
+            <p style="color: var(--text-muted);">Academic Instructors</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Courses</h3>
+            <div class="stat-val" id="admin-stat-courses">0</div>
+            <p style="color: var(--text-muted);">Active Course List</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Enrollments</h3>
+            <div class="stat-val" id="admin-stat-enrollments">0</div>
+            <p style="color: var(--text-muted);">Class Registrations</p>
+          </div>
+        </div>
+
+        <div class="widgets-grid">
+          <!-- Department Statistics -->
+          <div class="glass-panel">
+            <h3 style="margin-bottom: 1rem;">Academic Department Stats</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;" id="admin-dept-stats">
+              <!-- JS populated progress bars -->
+            </div>
+          </div>
+
+          <!-- Attendance Stats -->
+          <div class="glass-panel">
+            <h3 style="margin-bottom: 1rem;">Overall Student Attendance Rate</h3>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; height: 160px;" id="admin-attendance-stats">
+              <!-- JS populated rate -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. MONITORING PANEL -->
+      <div id="section-monitoring" class="dashboard-section">
+        <div class="stats-container">
+          <div class="glass-panel stat-card">
+            <h3>Prometheus Port</h3>
+            <div class="stat-val" style="color: var(--accent-cyan);">9090</div>
+            <p style="color: var(--text-muted);">Metrics Scraper Active</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>Grafana Port</h3>
+            <div class="stat-val" style="color: var(--accent-purple);">3000</div>
+            <p style="color: var(--text-muted);">Visualizer Server Active</p>
+          </div>
+          <div class="glass-panel stat-card">
+            <h3>App Metrics</h3>
+            <div class="stat-val" style="color: var(--success);">/metrics</div>
+            <p style="color: var(--text-muted);">Express Scrape Endpoint</p>
+          </div>
+        </div>
+
+        <div class="widgets-grid" style="grid-template-columns: 1fr;">
+          <div class="glass-panel monitoring-card" onclick="openGrafana()">
+            <div class="pulse-circle">📊</div>
+            <h2 class="neon-text">Open Grafana Performance Dashboard</h2>
+            <p style="color: var(--text-muted); max-width: 600px;">
+              Click to access the Grafana dashboard. Visualizes HTTP requests, average query processing latency, role-based sessions, and JVM system resource load with custom Prometheus integration.
+            </p>
+            <div class="btn btn-cyan" style="margin-top: 1rem;">Launch Grafana Dashboard</div>
+          </div>
+        </div>
+
+        <!-- System Alerting details -->
+        <div class="glass-panel" style="margin-top: 2rem;">
+          <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">Active Performance Alert Rules</h3>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Alert Name</th>
+                  <th>Condition</th>
+                  <th>Severity</th>
+                  <th>Trigger Mode</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color: var(--error); font-weight: 600;">High HTTP Latency</td>
+                  <td>Average HTTP response time > 2s for 1 minute</td>
+                  <td><span class="badge badge-absent">CRITICAL</span></td>
+                  <td>Grafana Alert Engine / Email Notify</td>
+                </tr>
+                <tr>
+                  <td style="color: var(--error); font-weight: 600;">High Server Load Error Rate</td>
+                  <td>HTTP 5xx error rate > 5% for 1 minute</td>
+                  <td><span class="badge badge-absent">CRITICAL</span></td>
+                  <td>Grafana Alert Engine</td>
+                </tr>
+                <tr>
+                  <td style="color: #fbbf24; font-weight: 600;">Database Connection Spike</td>
+                  <td>Database query response time > 500ms</td>
+                  <td><span class="badge badge-role">WARNING</span></td>
+                  <td>Grafana Alert Engine / Logs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
